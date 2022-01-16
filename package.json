@@ -1,0 +1,22 @@
+{
+  "name": "notebook-api",
+  "version": "1.0.0",
+  "description": "a notebook api in nodejs ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "api",
+    "mongodb",
+    "rest",
+    "api"
+  ],
+  "author": "prajapati.rahul373@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongoose": "^6.1.6"
+  }
+}

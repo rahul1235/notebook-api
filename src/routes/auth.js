@@ -10,8 +10,6 @@ const { fetchUser } = require("../middlewares/validateUser");
 const { formatValidationError } = require("../utils/helper");
 
 const { JWT_SECRET } = process.env;
-// eslint-disable-next-line no-console
-console.log(JWT_SECRET);
 
 router.post("/auth/create-user", async (req, res) => {
   try {

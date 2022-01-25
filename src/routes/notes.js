@@ -62,8 +62,6 @@ router.put("/notes/:id", [fetchUser], async (req, res) => {
     }
 
     const note = await Notes.findById(`${noteId}`);
-    // eslint-disable-next-line no-console
-    console.log(note);
     if (!note) {
       return res.status(400).send({
         status: STATUS_ERROR,
@@ -110,8 +108,6 @@ router.delete("/notes/:id", [fetchUser], async (req, res) => {
       });
     }
     const note = await Notes.findById(`${noteId}`);
-    // eslint-disable-next-line no-console
-    console.log(note);
     if (!note) {
       return res.status(400).send({
         status: STATUS_ERROR,

@@ -86,7 +86,7 @@ router.put("/notes/:id", [fetchUser], async (req, res) => {
       note.tag = bodyData.tag;
     }
 
-    note.save();
+    await note.save();
 
     return res.send(note);
   } catch (err) {

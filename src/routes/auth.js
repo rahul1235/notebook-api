@@ -10,6 +10,8 @@ const { fetchUser } = require("../middlewares/validateUser");
 const { formatValidationError } = require("../utils/helper");
 
 const { JWT_SECRET } = process.env;
+const STATUS_ERROR = "ERROR";
+const STATUS_SUCCESS = "SUCCESS";
 
 router.post("/auth/create-user", async (req, res) => {
   try {
@@ -32,7 +34,7 @@ router.post("/auth/create-user", async (req, res) => {
     };
     const authToken = jwt.sign(jwtData, JWT_SECRET);
     return res.send({
-      status: "success",
+      status: STATUS_SUCCESS,
       message: "user created successfully",
       data: {
         authToken,
@@ -41,7 +43,9 @@ router.post("/auth/create-user", async (req, res) => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return res.status(500).send("Internerl Server Error");
+    return res
+      .status(500)
+      .send({ status: STATUS_ERROR, message: "Internerl Server Error" });
   }
 });
 
@@ -58,9 +62,9 @@ router.post("/auth/login", async (req, res) => {
     }
     const user = await User.findOne({ email: bodyData.email });
     if (!user) {
-      return res.status(400).send({
-        message: "Invalid Credentials",
-      });
+      return res
+        .status(400)
+        .send({ status: STATUS_ERROR, message: "Invalid Credentials" });
     }
 
     const passwordCompare = await bcryptjs.compare(
@@ -68,9 +72,9 @@ router.post("/auth/login", async (req, res) => {
       user.password
     );
     if (!passwordCompare) {
-      return res.status(400).send({
-        message: "Invalid Credentials",
-      });
+      return res
+        .status(400)
+        .send({ status: STATUS_ERROR, message: "Invalid Credentials" });
     }
     const jwtData = {
       user: {
@@ -79,13 +83,15 @@ router.post("/auth/login", async (req, res) => {
     };
     const authToken = jwt.sign(jwtData, JWT_SECRET);
     return res.send({
-      status: "success",
+      status: STATUS_SUCCESS,
       data: {
         authToken,
       },
     });
   } catch (err) {
-    return res.status(500).send("Internerl Server Error");
+    return res
+      .status(500)
+      .send({ status: STATUS_ERROR, message: "Internerl Server Error" });
   }
 });
 
@@ -97,7 +103,9 @@ router.post("/auth/fetch-user", [fetchUser], async (req, res) => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return res.status(500).send("Internerl Server Error");
+    return res
+      .status(500)
+      .send({ status: STATUS_ERROR, message: "Internerl Server Error" });
   }
 });
 module.exports = router;
